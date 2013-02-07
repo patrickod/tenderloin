@@ -1,0 +1,22 @@
+{
+  "name": "tenderloin",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "ejs": "0.8.3"
+  },
+  "readmeFilename": "README.md",
+  "description": "ERROR: No README.md file found!",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "keywords": [
+    "hangout",
+    "google"
+  ],
+  "author": "Patrick O'Doherty",
+  "license": "MIT"
+}
