@@ -16,6 +16,7 @@ _(channels).each (channel, type) ->
     return unless items?
     items = JSON.parse(items)
 
+
     if items.room? and items.data?
       room = items.room
       items = items.data
@@ -23,6 +24,6 @@ _(channels).each (channel, type) ->
     items = [items] unless Array.isArray(items)
 
     if room?
-      Caboose.app.io.rooms(room).emit(type, items)
+      Caboose.app.io.rooms[room].emit(type, items)
     else
       Caboose.app.io.sockets.emit(type, items)
