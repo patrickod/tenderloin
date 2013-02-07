@@ -5,8 +5,7 @@
   "dependencies": {
     "ejs": "0.8.3",
     "redback": "latest",
-    "socket.io": "latest",
-    "socket.io-client": "latest",
+    "socket.io": "latest"
     "underscore": "latest",
     "async": "latest"
   },
