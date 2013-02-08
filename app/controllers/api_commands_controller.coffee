@@ -19,5 +19,5 @@ class ApiCommandsController extends ApiController
     @respond(json: 'ok')
   
   alert: ->
-    @send_command('bulkhead.alert()')
+    @send_command('bulkhead.play_sound("look_over_here")')
     @respond(json: 'ok')
