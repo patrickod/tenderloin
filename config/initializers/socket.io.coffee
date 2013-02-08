@@ -1,14 +1,16 @@
 return unless Caboose.command is 'server'
 
-io = require 'socket.io'
-_ = require 'underscore'
-
 Caboose.app.after 'boot', ->
-  Caboose.app.io = io.listen(Caboose.app.raw_http, 'tenderloin-sf.herokuapp.com')
-  Caboose.app.io.set('transports', ['xhr-polling'])
-  Caboose.app.io.set("polling duration", 10)
-
-  Caboose.app.rooms = {
-    sf: Caboose.app.io.of('/sf')
-    nyc: Caboose.app.io.of('/nyc')
-  }
+  io = Caboose.app.io = require('socket.io').listen(Caboose.app.raw_http)
+  # io = Caboose.app.io = require('socket.io').listen(Caboose.app.raw_http, 'tenderloin-sf.herokuapp.com')
+  
+  io.configure ->
+    io.set('transports', ['xhr-polling'])
+    io.set("polling duration", 10)
+  
+  console.log(k) for k, v of Caboose.app.offices
+  
+  io.sockets.on 'connection', (socket) ->
+    console.log 'New Connection'
+    socket.on 'disconnect', ->
+      console.log 'Disconnected'

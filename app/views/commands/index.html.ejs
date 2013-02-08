@@ -20,9 +20,9 @@
     
     $(function() {
       $('button').on('click', function(evt) {
+        var url = location.protocol + '//' + location.host + '/api' + location.pathname;
         
-        $.post(location.toString(), {command: editor.getValue()});
-        
+        $.post(url, {command: editor.getValue()});
         evt.preventDefault();
         return false;
       });
