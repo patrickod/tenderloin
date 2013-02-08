@@ -6,7 +6,7 @@ _ = require 'underscore'
 Caboose.app.after 'boot', ->
   Caboose.app.io = io.listen(Caboose.app.raw_http)
 
-  Caboose.app.io.rooms = {
+  Caboose.app.rooms = {
     sf: Caboose.app.io.of('/sf')
     nyc: Caboose.app.io.of('/nyc')
   }

@@ -1,2 +1,3 @@
 module.exports = ->
-  @route '/', 'home'
+  @resources 'rooms', ->
+    @resources 'commands'
