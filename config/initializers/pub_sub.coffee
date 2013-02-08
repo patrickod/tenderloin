@@ -16,7 +16,6 @@ _(channels).each (channel, type) ->
     return unless items?
     items = JSON.parse(items)
 
-
     if items.room? and items.data?
       room = items.room
       items = items.data
