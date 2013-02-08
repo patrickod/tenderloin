@@ -4,3 +4,6 @@ class ApiController extends ApplicationController
   before_action (next) ->
     @params.format = 'json'
     next()
+  
+  error: (err) ->
+    @render(json: {error: err?.stack})
