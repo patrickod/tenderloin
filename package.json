@@ -2,12 +2,18 @@
   "name": "tenderloin",
   "version": "0.0.1",
   "private": true,
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  },
   "dependencies": {
+    "caboose": "latest",
     "ejs": "0.8.3",
     "redback": "latest",
     "socket.io": "latest",
     "underscore": "latest",
-    "async": "latest"
+    "async": "latest",
+    "betturl": "latest"
   },
   "readmeFilename": "README.md",
   "main": "index.js",
