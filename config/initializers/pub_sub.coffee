@@ -5,13 +5,13 @@ betturl = require 'betturl'
 Caboose.app.config.redis = betturl.parse(process.env.REDIS_URL || {})
 
 Caboose.app.channels = {
-  command: redback.createClient(Caboose.app.config.redis).createChannel('commands')
+  command: redback.createClient(Caboose.app.config.redis.host, Caboose.app.redis.config.post).createChannel('commands')
 }
 
 return unless Caboose.command is 'server'
 
 channels = {
-  command: redback.createClient(Caboose.app.config.redis).createChannel('commands').subscribe()
+  command: redback.createClient(Caboose.app.config.redis.host, Caboose.app.redis.config.post).createChannel('commands').subscribe()
 }
 
 _(channels).each (channel, type) ->
