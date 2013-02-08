@@ -11,5 +11,7 @@ module.exports = ->
         @route 'camera_off', 'api_commands#camera_off'
         @route 'alert', 'api_commands#alert'
         @route 'gist', 'api_commands#gist'
+        @route 'sound', 'api_commands#sound'
+        @route 'stop_sound', 'api_commands#stop_sound'
 
       @resources 'commands', 'api_commands'

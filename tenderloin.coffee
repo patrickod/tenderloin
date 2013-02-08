@@ -37,7 +37,7 @@ module.exports = (robot) ->
          return msg.send("Oh noes! It broke!")
 
   ## Execute a gist in their G+ session
-  robot.respond /(.*) gist (https?:\/\/gist\.github\.com\/(.*)\/([0-9a-f]+)/i, (msg) ->
+  robot.respond /(.*) gist (https?:\/\/gist\.github\.com\/.*\/[0-9a-f]+)/i, (msg) ->
     office msg.match[1]
     gist_url = msg.match[2] + '/raw'
     msg.http("#{TENDERLOIN_ROOT}/offices/#{office}/gist")
