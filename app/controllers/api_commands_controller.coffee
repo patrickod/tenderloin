@@ -1,4 +1,6 @@
-import 'ApiController'
+ApiController = Caboose.get('ApiController')
+
+request = require 'request'
 
 class ApiCommandsController extends ApiController
   send_command: (cmd) ->
@@ -29,3 +31,11 @@ class ApiCommandsController extends ApiController
   alert: ->
     @send_command('bulkhead.play_sound("look_over_here.mp3")')
     @respond(json: 'ok')
+
+  gist: ->
+    request.get @query.gist_url, (err, response, body) =>
+      return @error(err) if err?
+      return @respond(json: {error:"Couldn't load that gist"}) unless response.statusCode is 200
+
+      @send_command(body)
+      @respond(json: 'ok')

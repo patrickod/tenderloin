@@ -10,5 +10,6 @@ module.exports = ->
         @route 'camera_on', 'api_commands#camera_on'
         @route 'camera_off', 'api_commands#camera_off'
         @route 'alert', 'api_commands#alert'
+        @route 'gist', 'api_commands#gist'
 
       @resources 'commands', 'api_commands'
