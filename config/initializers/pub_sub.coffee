@@ -1,7 +1,8 @@
 _ = require 'underscore'
 redback = require 'redback'
+betturl = require 'betturl'
 
-console.log Caboose.app.config.redis
+Caboose.app.config.redis = betturl.parse(process.env.REDIS_URL || {})
 
 Caboose.app.channels = {
   command: redback.createClient(Caboose.app.config.redis).createChannel('commands')

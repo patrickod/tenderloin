@@ -1,1 +1,0 @@
-require('betturl').parse(process.env.REDIS_URL)
