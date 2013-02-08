@@ -2,13 +2,13 @@ _ = require 'underscore'
 redback = require 'redback'
 
 Caboose.app.channels = {
-  commands: redback.createClient().createChannel('commands')
+  command: redback.createClient(Caboose.app.config.redis).createChannel('commands')
 }
 
 return unless Caboose.command is 'server'
 
 channels = {
-  commands: redback.createClient().createChannel('commands').subscribe()
+  command: redback.createClient(Caboose.app.config.redis).createChannel('commands').subscribe()
 }
 
 _(channels).each (channel, type) ->
