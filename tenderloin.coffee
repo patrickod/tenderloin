@@ -2,10 +2,10 @@
 #   Interacts with Unified's persistent G+ hangout.
 #
 # Commands:
-#   hubot $OFFICE mute - Mute the microphone for $OFFICE's G+ session
-#   hubot $OFFICE unmute - Unmute the microphone for $OFFICE's G+ session
-#   hubot $OFFICE alert - Get the attention of everyone  in $OFFICE
-#   hubot $OFFICE url - Make tenderloin execute the contents of the URL
+#   hubot <office> mute - Mute the microphone for <office>'s G+ session
+#   hubot <office> unmute - Unmute the microphone for <office>'s G+ session
+#   hubot <office> alert - Get the attention of everyone  in <office>
+#   hubot <office> url - Execute the contents of the URL in <office>'s session
 #
 
 TENDERLOIN_ROOT = 'http://tenderloin-sf.herokuapp.com/api/'

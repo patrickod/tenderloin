@@ -14,7 +14,8 @@
     "underscore": "latest",
     "async": "latest",
     "betturl": "latest",
-    "request": "latest"
+    "request": "latest",
+    "caboose-model": "0.1.18"
   },
   "readmeFilename": "README.md",
   "main": "index.js",
@@ -28,5 +29,8 @@
   "license": "MIT",
   "axle-domains": [
     "tenderloin.localhost.dev"
+  ],
+  "caboose-plugins": [
+    "caboose-model"
   ]
 }
