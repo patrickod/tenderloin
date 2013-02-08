@@ -1,8 +1,30 @@
 <style>
   textarea {width:500px;height:300px;}
+  #editor { 
+      position: absolute;
+      top: 35px;
+      right: 0;
+      bottom: 0;
+      left: 0;
+  }
 </style>
 
-<form method="POST">
-  <textarea name="command"></textarea>
-  <input type="submit" />
-</form>
+<button>Send!</button>
+<div id="editor"></div>
+
+<script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/javascript");
+    
+    $(function() {
+      $('button').on('click', function(evt) {
+        
+        $.post(location.toString(), {command: editor.getValue()});
+        
+        evt.preventDefault();
+        return false;
+      });
+    });
+</script>

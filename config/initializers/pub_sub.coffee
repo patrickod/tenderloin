@@ -2,11 +2,13 @@ _ = require 'underscore'
 redback = require 'redback'
 betturl = require 'betturl'
 
-config = betturl.parse(process.env.REDIS_URL || {})
-
 create_client = () ->
-  client = redback.createClient(config.port, config.host)
-  client.client.auth(config.auth.password)
+  if process.env.REDIS_URL
+    config = betturl.parse(process.env.REDIS_URL)
+    client = redback.createClient(config.port, config.host)
+    client.client.auth(config.auth.password) if config.auth?.password?
+  else
+    client = redback.createClient()
   return client
 
 Caboose.app.channels = {
