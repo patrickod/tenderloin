@@ -10,7 +10,7 @@ GoogleStrategy = require('passport-google').Strategy
 passport.serializeUser (user, done) ->
   done(null, user._id)
 
-passport.deserializeUser (user, done) ->
+passport.deserializeUser (id, done) ->
   User.where(_id: id).first done
 
 passport.use(
@@ -18,7 +18,6 @@ passport.use(
     returnURL: Caboose.app.config.google.return_url,
     realm: Caboose.app.config.google.realm
   }, (identifier, profile, done) ->
-    console.log arguments
     return done("Authentication failure") unless identifier?
 
     User.where(_id: profile.emails[0].value).first (err, user) ->

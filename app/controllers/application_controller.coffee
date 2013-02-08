@@ -5,7 +5,7 @@ class ApplicationController extends Controller
 
   is_logged_in: ->
     @current_user?
-  
+
   index: ->
-    return @redirect_to('/orgs') if @is_logged_in()
+    return @redirect_to('/organisations') if @is_logged_in()
     @render()
