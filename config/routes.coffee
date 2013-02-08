@@ -1,7 +1,7 @@
 module.exports = ->
   @route '/', 'application'
   @resources 'orgs', ->
-    @resources 'hangouts'
+    @resources 'offices'
   
   @resources 'offices', ->
     @resources 'commands'
