@@ -1,6 +1,8 @@
 _ = require 'underscore'
 redback = require 'redback'
 
+console.log Caboose.app.config.redis
+
 Caboose.app.channels = {
   command: redback.createClient(Caboose.app.config.redis).createChannel('commands')
 }
