@@ -2,6 +2,10 @@ module.exports = ->
   @resources 'offices', ->
     @resources 'commands'
 
+  @route 'auth/logout', 'auth#destroy'
+  @route 'auth/google', 'auth#google_new'
+  @route 'auth/google/callback', 'auth#google_create'
+
   @namespace 'api', ->
     @resources 'offices', 'api_offices', ->
       @namespace 'commands', ->

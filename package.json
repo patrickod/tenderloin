@@ -15,7 +15,10 @@
     "async": "latest",
     "betturl": "latest",
     "request": "latest",
-    "caboose-model": "0.1.18"
+    "moment": "latest",
+    "caboose-model": "0.1.18",
+    "passport": "latest",
+    "passport-google": "latest"
   },
   "readmeFilename": "README.md",
   "main": "index.js",
