@@ -7,6 +7,7 @@
     "npm": "1.1.x"
   },
   "dependencies": {
+    "caboose": "latest",
     "ejs": "0.8.3",
     "redback": "latest",
     "socket.io": "latest",
