@@ -6,7 +6,7 @@ config = betturl.parse(process.env.REDIS_URL || {})
 
 create_client = () ->
   client = redback.createClient(config.port, config.host)
-  client.auth(config.auth.password)
+  client.client.auth(config.auth.password)
   return client
 
 Caboose.app.channels = {
