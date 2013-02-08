@@ -18,6 +18,14 @@ class ApiCommandsController extends ApiController
     @send_command('bulkhead.microphone_on()')
     @respond(json: 'ok')
   
+  camera_off: ->
+    @send_command('bulkhead.camera_off()')
+    @respond(json: 'ok')
+
+  camera_on: ->
+    @send_command('bulkhead.camera_on()')
+    @respond(json: 'ok')
+  
   alert: ->
     @send_command('bulkhead.play_sound("look_over_here")')
     @respond(json: 'ok')
