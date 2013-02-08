@@ -13,7 +13,8 @@
     "socket.io": "latest",
     "underscore": "latest",
     "async": "latest",
-    "betturl": "latest"
+    "betturl": "latest",
+    "request": "latest"
   },
   "readmeFilename": "README.md",
   "main": "index.js",
