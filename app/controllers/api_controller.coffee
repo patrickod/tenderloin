@@ -7,4 +7,5 @@ class ApiController extends ApplicationController
     next()
   
   error: (err) ->
-    @respond_json(500, {error: err.message, stack: err.stack})
+    console.log err.stack
+    @respond_json(500, {error: err.message})

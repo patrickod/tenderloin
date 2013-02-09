@@ -1,13 +1,21 @@
+html, body {min-width:960px;}
+
 body {
   padding-top: 40px;
   padding-bottom: 40px;
-  background-color: #f5f5f5;
+  background: url(/images/paper_fibers_@2X.png)
 }
 
+#welcome {position:relative;width:100%;overflow:hidden;}
+#welcome .image-wrapper {height:500px;}
+#welcome .image-wrapper img {width:100%;}
+#welcome .caption {width:450px;top:200px;left:50px;position:absolute;color:#fff;line-height:1.25;text-shadow:1px 1px 10px black;}
+
 .welcome {
-  max-width: 300px;
+  max-width: 400px;
   padding: 19px 29px 29px;
-  margin: 0 auto 20px;
+  background: #fff;
+  margin: 10px auto 20px;
   border: 1px solid #e5e5e5;
   -webkit-border-radius: 5px;
      -moz-border-radius: 5px;
@@ -15,4 +23,22 @@ body {
   -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
      -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
           box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+
+#content {
+  margin-top: 20px;
+  background: #fff;
+  padding: 10px;
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+     -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+          box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+
+footer p {
+  margin: 10px 0px;
+  text-align: center;
+  color: #888;
 }

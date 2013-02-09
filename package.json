@@ -1,6 +1,7 @@
 {
   "name": "tenderloin",
   "version": "0.0.1",
+  "homepage": "https://github.com/patrickod/tenderloin",
   "private": true,
   "engines": {
     "node": "0.8.x",
@@ -19,17 +20,33 @@
     "caboose-model": "0.1.18",
     "passport": "latest",
     "passport-google": "latest",
-    "longjohn": "latest"
+    "longjohn": "latest",
+    "connect-redis": "~1.4.5"
   },
   "readmeFilename": "README.md",
-  "main": "index.js",
   "devDependencies": {},
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/patrickod/tenderloin.git"
+  },
+  "licenses": [{
+    "type": "MIT",
+    "url": "https://github.com/patrickod/tenderloin/blob/master/LICENSE-MIT"
+  }],
   "keywords": [
     "hangout",
     "google"
   ],
-  "author": "Patrick O'Doherty",
+  "author": {
+    "name": "Patrick O'Doherty",
+    "email": "p@trickod.com",
+    "url": "http://patrickod.com"
+  },
+  "contributors": [{
+    "name": "Matt Insler",
+    "email": "matt.insler@gmail.com",
+    "url": "http://www.mattinsler.com" 
+  }],
   "license": "MIT",
   "axle-domains": [
     "tenderloin.localhost.dev"

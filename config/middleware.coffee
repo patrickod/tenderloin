@@ -1,6 +1,7 @@
 express = require 'express'
 flash = require 'connect-flash'
 passport = Caboose.app.passport
+RedisStore = require('connect-redis')(express)
 
 module.exports = (http) ->
   http.use express.bodyParser()
@@ -12,7 +13,7 @@ module.exports = (http) ->
     next()
   
   http.use express.cookieParser()
-  http.use express.session(secret: 'some kind of random string')
+  http.use express.session(secret: '1sMCS037ADabTTf8wp5AlmmuzNY1BYgC', store: new RedisStore(client: Caboose.app.redis))
   http.use passport.initialize()
   http.use passport.session()
   http.use (req, res, next) ->
