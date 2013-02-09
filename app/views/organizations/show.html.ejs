@@ -1,1 +1,18 @@
 <h3><%= org.name %></h3>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% _.map(org.users, function(u) { %>
+      <tr>
+        <td><%= u._id %></td>
+        <td><a href="/users/<%= u._id %>">Edit</a></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
