@@ -11,6 +11,11 @@ create_client = () ->
     client = redback.createClient()
   return client
 
+# All purpose redis client
+Caboose.app.redis = create_client().client
+
+
+# Pub sub related clients
 Caboose.app.channels = {
   command: create_client().createChannel('commands')
 }
@@ -26,7 +31,7 @@ _(channels).each (channel, type) ->
     return unless items?
     items = JSON.parse(items)
     items = [items] unless Array.isArray(items)
-    
+
     items.forEach (message) ->
       return unless message.office? and message.message?
       office = Caboose.app.offices[message.office]

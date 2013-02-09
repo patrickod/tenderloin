@@ -1,1 +1,28 @@
-Stuff goes here
+<h3>Organizations</h3>
+<div class="row">
+  <div class="span4">
+    <form class="form-inline" method="POST">
+      <input type="text" name="name" class="input-medium" placeholder="Bluth Company Inc" />
+      <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+  </div>
+</div>
+<table class="table table-striped">
+  <caption>Here you'll find a list of all your organizations</caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>View</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if (organizations.length) { %>
+      <% _.map(organizations, function(o) { %>
+        <tr>
+          <td><%= o.name %></td>
+          <td><a href="/organizations/<%= o._id %>">Edit</a></td>
+        </tr>
+      <% }) %>
+    <% } %>
+  </tbody>
+</table>

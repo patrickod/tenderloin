@@ -1,4 +1,10 @@
 class ApplicationController extends Controller
+  helper {
+    _: require('underscore')
+    moment: require('moment')
+    async: require('async')
+  }
+
   before_action (next) ->
     @current_user = @request.user
     next()
