@@ -1,6 +1,7 @@
 AuthenticatedController = Caboose.get('AuthenticatedController')
 Organization = Caboose.get('Organization')
 User = Caboose.get('User')
+Room = Caboose.get('Room')
 
 _ = require 'underscore'
 async = require 'async'
@@ -21,19 +22,18 @@ class OrganizationsController extends AuthenticatedController
       (cb) => Organization.where(_id: @params.id).first(cb),
       (org, cb) ->
         return cb(new Error("Organization not found")) unless org?
-        async.map(
-          org.users,
-          (u, cb) -> User.where(_id: u).first(cb),
-          (err, users) =>
-            return cb(err) if err?
-            cb(null, _.extend(org, {users: _.compact(users)}))
-        )
+        async.parallel {
+          users: (cb) => async.map(org.users, ((u, cb) -> User.where(_id: u).first(cb)), cb),
+          rooms: (cb) => async.map(org.rooms, ((u, cb) -> Room.where(_id: u).first(cb)), cb)
+        }, (err, results) =>
+          return cb(err) if err?
+          cb(null, _.extend(org, results))
     ], (err, org) =>
       return @error(err) if err?
       @org = org
       @render()
 
   create: ->
-    Organization.save {name: @body.name, users: [@current_user._id]}, (err, org) =>
+    Organization.save {name: @body.name, users: [@current_user._id], rooms: []}, (err, org) =>
       return @error(err) if err?
       @redirect_to("/organizations/#{org._id}")

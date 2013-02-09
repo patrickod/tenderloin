@@ -2,6 +2,8 @@ module.exports = ->
   @route '/', 'application'
   @resources 'organizations', ->
     @resources 'offices'
+    @resources 'rooms'
+    @resources 'users'
 
   @resources 'offices', ->
     @resources 'commands'

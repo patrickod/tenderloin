@@ -1,5 +1,14 @@
-<h3><%= org.name %></h3>
+<h2><%= org.name %></h2>
 
+<h3>Users</h3>
+<div class="row">
+  <div class="span4">
+    <form class="form-inline" method="POST" action="/organizations/<%= org._id %>/users">
+      <input type="text" name="name" class="input-large" placeholder="gob@bluthcompany.com" />
+      <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+  </div>
+</div>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -12,6 +21,31 @@
       <tr>
         <td><%= u._id %></td>
         <td><a href="/users/<%= u._id %>">Edit</a></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<h3>Rooms</h3>
+<div class="row">
+  <div class="span4">
+    <form class="form-inline" method="POST" action="/organizations/<%= org._id %>/rooms">
+      <input type="text" name="name" class="input-large" placeholder="Bluth Company Inc" />
+      <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+  </div>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% _.map(org.rooms, function(u) { %>
+      <tr>
+        <td><%= u.name %></td>
+        <td><a href="/organizations/<%= org._id %>/rooms/<%= u._id %>">Edit</a></td>
       </tr>
     <% }) %>
   </tbody>
