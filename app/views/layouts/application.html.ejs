@@ -8,8 +8,18 @@
     <%- javascript_include('jquery-1.9.1.min', 'bootstrap.min') %>
   </head>
   <body>
-    <div class="container">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">Tenderloin</a>
+        </div>
+      </div>
+    </div>
+    <div class="container" id="content">
       <%- yield() %>
+    </div>
+    <div id="footer">
+      <p>Made with Love. &copy; 2013</p>
     </div>
   </body>
 </html>
