@@ -11,4 +11,5 @@ class AuthController extends ApplicationController
   destroy: ->
     @request.logOut()
     @session.destroy()
+    @response.clearCookie('connect.sid');
     @redirect_to '/'

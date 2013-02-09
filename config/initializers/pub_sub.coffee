@@ -28,7 +28,7 @@ _(channels).each (channel, type) ->
     items = [items] unless Array.isArray(items)
     
     items.forEach (message) ->
-      return unless message.office? and message.message?
-      office = Caboose.app.offices[message.office]
-      return unless office?
-      office.send(message.message)
+      return unless message.room? and message.message?
+      room = Caboose.app.rooms[message.room]
+      return unless room?
+      room.send(message.message)

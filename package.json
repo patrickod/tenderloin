@@ -18,7 +18,8 @@
     "moment": "latest",
     "caboose-model": "0.1.18",
     "passport": "latest",
-    "passport-google": "latest"
+    "passport-google": "latest",
+    "longjohn": "latest"
   },
   "readmeFilename": "README.md",
   "main": "index.js",

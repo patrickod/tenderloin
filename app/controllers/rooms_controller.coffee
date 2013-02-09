@@ -1,7 +1,3 @@
-import 'ApiController'
+AuthenticatedController = Caboose.get('AuthenticatedController')
 
-_ = require 'underscore'
-
-class RoomsController extends ApiController
-  index: ->
-    @render(json: _(Caboose.app.rooms).keys())
+class RoomsController extends AuthenticatedController

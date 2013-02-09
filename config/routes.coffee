@@ -1,9 +1,9 @@
 module.exports = ->
   @route '/', 'application'
   @resources 'organizations', ->
-    @resources 'offices'
+    @resources 'rooms'
 
-  @resources 'offices', ->
+  @resources 'rooms', ->
     @resources 'commands'
 
   @route 'auth/logout', 'auth#destroy'
@@ -11,7 +11,7 @@ module.exports = ->
   @route 'auth/google/callback', 'auth#google_create'
 
   @namespace 'api', ->
-    @resources 'offices', 'api_offices', ->
+    @resources 'rooms', 'api_rooms', ->
       @namespace 'commands', ->
         @route 'microphone_on', 'api_commands#microphone_on'
         @route 'microphone_off', 'api_commands#microphone_off'

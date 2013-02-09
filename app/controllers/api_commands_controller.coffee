@@ -5,7 +5,7 @@ request = require 'request'
 class ApiCommandsController extends ApiController
   send_command: (cmd) ->
     Caboose.app.channels.command.publish(JSON.stringify(
-      office: @params.offices_id, message: cmd
+      room: @params.rooms_id, message: cmd
     ))
 
   create: ->

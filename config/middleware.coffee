@@ -5,6 +5,12 @@ passport = Caboose.app.passport
 module.exports = (http) ->
   http.use express.bodyParser()
   http.use express.methodOverride()
+  http.use (req, res, next) ->
+    if req.headers['x-tenderloin-auth']?
+      req.headers.cookie = 'connect.sid=' + req.headers['x-tenderloin-auth'] 
+      delete req.headers['x-tenderloin-auth']
+    next()
+  
   http.use express.cookieParser()
   http.use express.session(secret: 'some kind of random string')
   http.use passport.initialize()

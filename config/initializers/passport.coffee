@@ -11,7 +11,7 @@ passport.serializeUser (user, done) ->
   done(null, user._id)
 
 passport.deserializeUser (id, done) ->
-  User.where(_id: id).first done
+  User.where(_id: id).first(done)
 
 passport.use(
   new GoogleStrategy {
