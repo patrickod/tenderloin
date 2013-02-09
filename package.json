@@ -21,6 +21,7 @@
     "passport": "latest",
     "passport-google": "latest",
     "longjohn": "latest",
+    "node-uuid": "latest",
     "connect-redis": "~1.4.5"
   },
   "readmeFilename": "README.md",
@@ -35,7 +36,8 @@
   }],
   "keywords": [
     "hangout",
-    "google"
+    "google",
+    "tenderloin"
   ],
   "author": {
     "name": "Patrick O'Doherty",
@@ -45,7 +47,7 @@
   "contributors": [{
     "name": "Matt Insler",
     "email": "matt.insler@gmail.com",
-    "url": "http://www.mattinsler.com" 
+    "url": "http://www.mattinsler.com"
   }],
   "license": "MIT",
   "axle-domains": [

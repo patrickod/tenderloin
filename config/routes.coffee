@@ -1,8 +1,9 @@
 module.exports = ->
   @route '/', 'application'
-  # @resources 'organizations', ->
-  #   @resources 'rooms'
-  #   @resources 'users'
+
+  @resources 'organizations', ->
+    @resources 'rooms'
+    @resources 'users'
 
   # @resources 'rooms', ->
   #   @resources 'commands'
@@ -15,9 +16,9 @@ module.exports = ->
     @resources 'organizations', 'api_organizations', ->
       @resources 'rooms', 'api_rooms', ->
         @resources 'scripts', 'api_scripts'
-    #   
-    #   
-    #   
+    #
+    #
+    #
     # @resources 'rooms', 'api_rooms', ->
     #   @namespace 'commands', ->
     #     @route 'microphone_on', 'api_commands#microphone_on'
@@ -28,5 +29,5 @@ module.exports = ->
     #     @route 'gist', 'api_commands#gist'
     #     @route 'sound', 'api_commands#sound'
     #     @route 'stop_sound', 'api_commands#stop_sound'
-    # 
+    #
     #   @resources 'commands', 'api_commands'

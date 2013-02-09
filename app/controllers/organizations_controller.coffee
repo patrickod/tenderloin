@@ -5,6 +5,7 @@ Room = Caboose.get('Room')
 
 _ = require 'underscore'
 async = require 'async'
+uuid = require 'node-uuid'
 
 class OrganizationsController extends AuthenticatedController
 
@@ -34,6 +35,6 @@ class OrganizationsController extends AuthenticatedController
       @render()
 
   create: ->
-    Organization.save {name: @body.name, users: [@current_user._id], rooms: []}, (err, org) =>
+    Organization.save {name: @body.name, users: [@current_user._id], rooms: [], api_key: uuid.v1()}, (err, org) =>
       return @error(err) if err?
       @redirect_to("/organizations/#{org._id}")
