@@ -1,6 +1,6 @@
 module.exports = ->
   @route '/', 'application'
-  @resources 'organisations', ->
+  @resources 'organizations', ->
     @resources 'offices'
 
   @resources 'offices', ->

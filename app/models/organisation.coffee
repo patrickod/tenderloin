@@ -1,2 +1,2 @@
-class Organisation extends Model
-  store_in: 'organisations'
+class Organization extends Model
+  store_in 'organizations'
