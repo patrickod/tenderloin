@@ -1,9 +1,15 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <title>My Awesome App</title>
-    <%- javascript_include('http://code.jquery.com/jquery.min.js') %>
+    <title>Tenderloin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <%- stylesheet_include('bootstrap.min', 'tenderloin') %>
+    <%- javascript_include('jquery-1.9.1.min', 'bootstrap.min') %>
   </head>
   <body>
-    <%- yield() %>
+    <div class="container">
+      <%- yield() %>
+    </div>
   </body>
 </html>
