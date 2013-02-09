@@ -1,10 +1,10 @@
 AuthenticatedController = Caboose.get('AuthenticatedController')
-Organisation = Caboose.get('Organisation')
+Organization = Caboose.get('Organization')
 
-class OrganisationsController extends AuthenticatedController
+class OrganizationsController extends AuthenticatedController
 
   index: ->
-    Organisation.where({users: @current_user._id}).array (err, orgs) =>
+    Organization.where({users: @current_user._id}).array (err, orgs) =>
       return @error(err) if err?
       @orgs = orgs
       @render()
