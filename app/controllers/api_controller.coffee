@@ -9,3 +9,6 @@ class ApiController extends ApplicationController
   error: (err) ->
     console.log err.stack
     @respond_json(500, {error: err.message})
+  
+  user: ->
+    @render(json: @current_user)

@@ -13,6 +13,7 @@ module.exports = ->
   @route 'auth/google/callback', 'auth#google_create'
 
   @namespace 'api', ->
+    @route 'user', 'api#user'
     @resources 'organizations', 'api_organizations', ->
       @resources 'rooms', 'api_rooms', ->
         @resources 'scripts', 'api_scripts'

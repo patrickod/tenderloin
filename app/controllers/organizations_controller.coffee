@@ -10,7 +10,7 @@ uuid = require 'node-uuid'
 class OrganizationsController extends AuthenticatedController
 
   index: ->
-    Organization.where({users: @current_user._id}).array (err, orgs) =>
+    @current_user.organizations().array (err, orgs) =>
       return @error(err) if err?
       @organizations = orgs
       @render()
@@ -35,6 +35,6 @@ class OrganizationsController extends AuthenticatedController
       @render()
 
   create: ->
-    Organization.save {name: @body.name, users: [@current_user._id], rooms: [], api_key: uuid.v1()}, (err, org) =>
+    @current_user.create_organization @body, (err, org) =>
       return @error(err) if err?
       @redirect_to("/organizations/#{org._id}")

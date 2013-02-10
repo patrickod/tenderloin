@@ -6,8 +6,17 @@ Room = Caboose.get('Room')
 Organization = Caboose.get('Organization')
 
 class RoomsController extends AuthenticatedController
+  before_action (next) ->
+    Organization.where(_id: @params.organizations_id).first (err, org) =>
+      return next(err) if err?
+      @organization = org
+      next()
+  
   index: ->
-    @render(json: _(Caboose.app.rooms).keys())
+    @organization.rooms().array (err, rooms) =>
+      return @error(err) if err?
+      @rooms = rooms
+      @render()
 
   create: ->
     async.waterfall [

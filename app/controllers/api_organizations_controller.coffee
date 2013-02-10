@@ -1,15 +1,19 @@
 import 'ApiController'
-import 'Organization'
 
 _ = require 'underscore'
 
 class ApiOrganizationsController extends ApiController
   index: ->
-    Organization.where(users: @current_user._id).fields(['name']).array (err, data) =>
+    @current_user.organizations().array (err, data) =>
       return @error(err) if err?
-      @render(json: _(data).pluck('name'))
+      @render(json: data)
   
-  # show: ->
-  #   Organization.where(users: @current_user._id).fields('name').array (err, organizations) =>
-  #     return @error(err) if err?
-  #     @respond(json: organizations)
+  show: ->
+    @current_user.organization(@params.id).first (err, org) =>
+      return @error(err) if err?
+      @render(json: org)
+  
+  create: ->
+    @current_user.create_organization @body, (err, org) =>
+      return @error(err) if err?
+      @render(json: org)
