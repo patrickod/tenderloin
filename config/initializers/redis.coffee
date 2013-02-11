@@ -11,9 +11,11 @@ create_client = () ->
     client = redback.createClient()
   return client
 
-# All purpose redis client
-Caboose.app.redis = create_client().client
-
+Caboose.app.redis = {
+  default: create_client().client,
+  pub: create_client().client
+  sub: create_client().client
+}
 
 # Pub sub related clients
 Caboose.app.channels = {

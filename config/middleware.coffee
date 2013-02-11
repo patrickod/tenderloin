@@ -8,12 +8,12 @@ module.exports = (http) ->
   http.use express.methodOverride()
   http.use (req, res, next) ->
     if req.headers['x-tenderloin-auth']?
-      req.headers.cookie = 'connect.sid=' + req.headers['x-tenderloin-auth'] 
+      req.headers.cookie = 'connect.sid=' + req.headers['x-tenderloin-auth']
       delete req.headers['x-tenderloin-auth']
     next()
-  
+
   http.use express.cookieParser()
-  http.use express.session(secret: '1sMCS037ADabTTf8wp5AlmmuzNY1BYgC', store: new RedisStore(client: Caboose.app.redis))
+  http.use express.session(secret: '1sMCS037ADabTTf8wp5AlmmuzNY1BYgC', store: new RedisStore(client: Caboose.app.redis.default))
   http.use passport.initialize()
   http.use passport.session()
   http.use (req, res, next) ->
