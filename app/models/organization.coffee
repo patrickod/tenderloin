@@ -1,7 +1,8 @@
 _ = require 'underscore'
 uuid = require 'node-uuid'
+asyn = require 'async'
 
-FIELDS = ['name', 'owner', 'rooms']
+FIELDS = ['name', 'owner', 'users']
 
 class Organization extends Model
   store_in 'organizations'
@@ -16,17 +17,15 @@ class Organization extends Model
     props.organization = @_id
 
     Caboose.get('Room').create(props, callback)
-
+  
   @create: (props, callback) ->
     if typeof props is 'function'
       callback = props
       props = {}
-
-    props.rooms ?= []
+    
+    props = _.pick(props, FIELDS)
     props.api_key = uuid.v1()
     props._id = "#{props.owner}:#{props.name}"
-
-    props = _.pick(props, FIELDS)
 
     return callback(new Error("Organization name cannot contain :")) if props.name.match /:/
 

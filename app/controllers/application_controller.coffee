@@ -1,9 +1,12 @@
+import 'UrlHelper'
+
 class ApplicationController extends Controller
   helper {
     _: require('underscore')
     moment: require('moment')
     async: require('async')
   }
+  helper UrlHelper
 
   before_action (next) ->
     @current_user = @request.user

@@ -1,16 +1,16 @@
 <div class="container" id="content">
-  <h2><%= org.name %></h2>
+  <h2><%= organization.name %></h2>
 
   <div class="row">
     <div class="span6">
-      <span>API key: <code><%= org.api_key %></code></span>
+      <span>API key: <code><%= organization.api_key %></code></span>
     </div>
   </div>
 
   <h3>Users</h3>
   <div class="row">
     <div class="span4">
-      <form class="form-inline" method="POST" action="/organizations/<%= org._id %>/users">
+      <form class="form-inline" method="POST" action="/organizations/<%= organization._id %>/users">
         <input type="text" name="name" class="input-large" placeholder="gob@bluthcompany.com" />
         <button type="submit" class="btn btn-primary">Create</button>
       </form>
@@ -24,10 +24,10 @@
       </tr>
     </thead>
     <tbody>
-      <% _.map(org.users, function(u) { %>
+      <% _.map(organization.users, function(u) { %>
         <tr>
-          <td><%= u._id %></td>
-          <td><a href="/users/<%= u._id %>">Edit</a></td>
+          <td><%= u %></td>
+          <td><a href="/users/<%= encode(u) %>">Edit</a></td>
         </tr>
       <% }) %>
     </tbody>
@@ -35,7 +35,7 @@
   <h3>Rooms</h3>
   <div class="row">
     <div class="span4">
-      <form class="form-inline" method="POST" action="/organizations/<%= org._id %>/rooms">
+      <form class="form-inline" method="POST" action="/organizations/<%= encode(organization._id) %>/rooms">
         <input type="text" name="name" class="input-large" placeholder="Bluth Company Inc" />
         <button type="submit" class="btn btn-primary">Create</button>
       </form>
@@ -49,10 +49,10 @@
       </tr>
     </thead>
     <tbody>
-      <% _.map(org.rooms, function(u) { %>
+      <% _.map(organization.rooms, function(r) { %>
         <tr>
-          <td><%= u.name %></td>
-          <td><a href="/organizations/<%= org._id %>/rooms/<%= u._id %>">Edit</a></td>
+          <td><%= r.name %></td>
+          <td><a href="/organizations/<%= encode(r.organization) %>/rooms/<%= encode(r.name) %>">Edit</a></td>
         </tr>
       <% }) %>
     </tbody>
