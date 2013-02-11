@@ -1,7 +1,7 @@
 _ = require 'underscore'
 uuid = require 'node-uuid'
 
-FIELDS = ['name', 'owner', 'rooms']
+FIELDS = ['name', 'owner', 'rooms', 'api_key']
 
 class Organization extends Model
   store_in 'organizations'
