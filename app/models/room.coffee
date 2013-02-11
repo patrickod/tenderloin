@@ -1,3 +1,4 @@
+FIELDS = ['_id', 'name', 'organization']
 class Room extends Model
   store_in 'rooms'
 
@@ -5,6 +6,9 @@ class Room extends Model
     if typeof props is 'function'
       callback = props
       props = {}
+
+    props = _.pick(props, FIELDS)
+    return callback(new Error("Room name cannot contain :")) if props.name.match /:/
 
     props._id = "#{props.organization}:#{props.name}"
 

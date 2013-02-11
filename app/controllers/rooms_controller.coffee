@@ -11,7 +11,7 @@ class RoomsController extends AuthenticatedController
       return next(err) if err?
       @organization = org
       next()
-  
+
   index: ->
     @organization.rooms().array (err, rooms) =>
       return @error(err) if err?
