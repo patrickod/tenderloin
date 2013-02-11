@@ -1,6 +1,5 @@
 _ = require 'underscore'
 uuid = require 'node-uuid'
-asyn = require 'async'
 
 FIELDS = ['name', 'owner', 'users']
 

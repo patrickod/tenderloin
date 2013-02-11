@@ -1,22 +1,29 @@
 module.exports = ->
+  # Website Routes
+  
   @route '/', 'application'
-
+  
   @resources 'organizations', ->
     @resources 'rooms'
     @resources 'users'
-
-  # @resources 'rooms', ->
-  #   @resources 'commands'
-
+  
+  # Auth Routes
+  
   @route 'auth/logout', 'auth#destroy'
   @route 'auth/google', 'auth#google_new'
   @route 'auth/google/callback', 'auth#google_create'
-
+  
+  # API Routes
+  
   @namespace 'api', ->
-    @route 'user', 'api#user'
+    @route 'user', 'api_users'
     @resources 'organizations', 'api_organizations', ->
       @resources 'rooms', 'api_rooms', ->
         @resources 'scripts', 'api_scripts'
+    
+    @resources 'rooms', 'api_rooms', ->
+      @resources 'scripts', 'api_scripts'
+    
     #
     #
     #

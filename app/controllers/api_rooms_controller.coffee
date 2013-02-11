@@ -1,15 +1,10 @@
 import 'ApiController'
 import 'Organization'
-
-_ = require 'underscore'
+import 'ApiHelper'
 
 class ApiRoomsController extends ApiController
-  before_action (next) ->
-    @current_user.organization(@params.organizations_id).first (err, org) =>
-      return next(err) if err?
-      @organization = org
-      next()
-
+  before_action ApiHelper.fetch_organization('organizations_id')
+  
   index: ->
     Organization::rooms.call(@organization).array (err, rooms) =>
       return @error(err) if err?

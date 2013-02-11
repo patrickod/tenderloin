@@ -24,10 +24,3 @@ class RoomsController extends AuthenticatedController
     @organization.create_room @body, (err, room) =>
       return @error(err) if err?
       @redirect_to "/organizations/#{url.encode(room.organization)}"
-    #   
-    # async.waterfall [
-    #   (cb) => Room.save({organization_id: @params.organizations_id, name: @body.name}, cb),
-    #   (room, cb) => Organization.upsert({_id: @params.organizations_id}, {$push: {rooms: room._id}}, cb)
-    # ], (err) =>
-    #   return @error(err) if err?
-    #   return @redirect_to("/organizations/#{@params.organizations_id}")
