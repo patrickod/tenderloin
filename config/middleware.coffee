@@ -12,6 +12,12 @@ module.exports = (http) ->
       delete req.headers['x-tenderloin-auth']
     next()
 
+  http.use (req, res, next) ->
+    if req.headers['x-tenderloin-api-key']?
+      req.api_key = req.headers['x-tenderloin-api-key']
+      delete req.headers['x-tenderloin-api-key']
+    next()
+
   http.use express.cookieParser()
   http.use express.session(secret: '1sMCS037ADabTTf8wp5AlmmuzNY1BYgC', store: new RedisStore(client: Caboose.app.redis.default))
   http.use passport.initialize()
