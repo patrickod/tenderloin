@@ -9,7 +9,12 @@ class ApiRoomsController extends ApiController
     Organization::rooms.call(@organization).array (err, rooms) =>
       return @error(err) if err?
       @render(json: rooms)
-
+  
+  show: ->
+    @organization.room(@params.id).first (err, room) =>
+      return @error(err) if err?
+      @render(json: room)
+  
   create: ->
     @organization.create_room @body, (err, room) =>
       return @error(err) if err?

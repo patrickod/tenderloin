@@ -1,51 +1,47 @@
-ApiController = Caboose.get('ApiController')
+import 'ApiController'
+import 'Organization'
+import 'ApiHelper'
+url = Caboose.get('UrlHelper')
 
+_ = require 'underscore'
 request = require 'request'
 
-class ApiCommandsController extends ApiController
-  send_command: (cmd) ->
-    Caboose.app.channels.command.publish(JSON.stringify(
-      room: @params.rooms_id, message: cmd
-    ))
+basic_command = (cmd) ->
+  (cb) -> cb(null, cmd)
 
-  create: ->
-    @send_command(@body.command)
-    @respond(json: 'ok')
-
-  microphone_off: ->
-    @send_command('bulkhead.microphone_off()')
-    @respond(json: 'ok')
-
-  microphone_on: ->
-    @send_command('bulkhead.microphone_on()')
-    @respond(json: 'ok')
-
-  camera_off: ->
-    @send_command('bulkhead.camera_off()')
-    @respond(json: 'ok')
-
-  camera_on: ->
-    @send_command('bulkhead.camera_on()')
-    @respond(json: 'ok')
-
-  alert: ->
-    @send_command('bulkhead.play_sound("look_over_here.mp3")')
-    @respond(json: 'ok')
-
-  gist: ->
-    return @respond(json: {error: "No URL provided"}) unless @query.url?
+COMMANDS =
+  microphone_off: basic_command('gg.microphone_off()')
+  microphone_on: basic_command('gg.microphone_on()')
+  camera_off: basic_command('gg.camera_off()')
+  camera_on: basic_command('gg.camera_on()')
+  alert: basic_command('gg.play_sound("look_over_here.mp3")')
+  
+  gist: (cb) ->
+    return cb(new Error('No URL provided')) unless @query.url?
     request.get @query.url, (err, response, body) =>
-      return @error(err) if err?
-      return @respond(json: {error:"Couldn't load that gist"}) unless response.statusCode is 200
+      return cb(err) if err?
+      return cb(new Error('Could not load gist: ' + @query.url)) unless response.statusCode is 200
+      cb(null, body)
 
-      @send_command(body)
+  sound: (cb) ->
+    return cb(new Error('No URL provided')) unless @query.url?
+    cb(null, "gg.play_sound('#{@query.url}')")
+
+  sound_stop: basic_command("gg.stop_sound()")
+  
+
+class ApiCommandsController extends ApiController
+  before_action ApiHelper.fetch_room
+  
+  index: ->
+    @render(json: _(COMMANDS).keys())
+  
+  show: ->
+    command = COMMANDS[@params.id]
+    @respond_json(404, {error: 'Invalid command: ' + @params.id}) unless command?
+    
+    command.call @, (err, cmd) =>
+      return @respond_json(500, {error: err.message}) if err?
+      
+      @room.send_command(cmd)
       @respond(json: 'ok')
-
-  sound: ->
-    return @respond(json: {error: "No URL provided"}) unless @query.url?
-    @send_command("bulkhead.play_sound('#{@query.url}')")
-    @respond(json: 'ok')
-
-  sound_stop: ->
-    @send_command("bulkhead.stop_sound()")
-    @respond(json: 'ok')

@@ -1,15 +1,9 @@
 return unless Caboose.command is 'server'
 
 Room = Caboose.get('Room')
-_ = require 'underscore'
-
-Caboose.app.rooms = {}
+url = Caboose.get('UrlHelper')
 
 Room.array (err, rooms) ->
   throw err if err?
-
-  _.each rooms, (r) ->
-    [owner, organization, name] = r._id.split(':')
-    url = "/organizations/#{organization}/rooms/#{name}"
-
-    Caboose.app.rooms[url] = Caboose.app.io.of(url)
+  
+  Caboose.app.io.of('/' + url.encode(r._id)) for r in rooms

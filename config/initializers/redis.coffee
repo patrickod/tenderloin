@@ -1,6 +1,7 @@
 _ = require 'underscore'
 redback = require 'redback'
 betturl = require 'betturl'
+url = Caboose.get('UrlHelper')
 
 create_client = () ->
   if process.env.REDIS_URL
@@ -36,6 +37,5 @@ _(channels).each (channel, type) ->
 
     items.forEach (message) ->
       return unless message.room? and message.message?
-      room = Caboose.app.rooms[message.room]
-      return unless room?
+      room = Caboose.app.io.of('/' + url.encode(message.room))
       room.send(message.message)

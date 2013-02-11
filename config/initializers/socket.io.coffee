@@ -3,7 +3,7 @@ return unless Caboose.command is 'server'
 RedisStore = require('socket.io/lib/stores/redis')
 
 Caboose.app.after 'boot', ->
-  io = Caboose.app.io = require('socket.io').listen(Caboose.app.raw_http)
+  io = Caboose.app.io = require('socket.io').listen(Caboose.app.raw_http, 'tenderloin.localhost.dev')
   # io = Caboose.app.io = require('socket.io').listen(Caboose.app.raw_http, 'tenderloin-sf.herokuapp.com')
 
   io.configure ->

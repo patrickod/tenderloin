@@ -19,17 +19,25 @@ passport.use(
     realm: Caboose.app.config.google.realm
   }, (identifier, profile, done) ->
     return done("Authentication failure") unless identifier?
-
-    User.where(_id: profile.emails[0].value).first (err, user) ->
+    
+    email = profile.emails[0].value
+    google_account = _({id: identifier}).extend(profile)
+    
+    User.where(_id: email).first (err, user) ->
       return done(err) if err?
-
-      u = {
-        _id: profile.emails[0].value
-        google_id: identifier
-        name: {first: profile.name.givenName, last: profile.name.familyName},
-        google: profile
-      }
-      u = _.extend(u, {created_at: new Date()}) unless user?
-
-      User.save u, done
+      
+      if user?
+        user.update($set: {'accounts.google': google_account})
+        return done(null, user)
+      
+      User.create(
+        email: email
+        name: {
+          first: profile.name.givenName
+          last: profile.name.familyName
+        }
+        accounts: {
+          google: google_account
+        }
+      , done)
 )

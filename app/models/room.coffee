@@ -1,10 +1,16 @@
 _ = require 'underscore'
+url = Caboose.get('UrlHelper')
 
 FIELDS = ['name', 'organization']
 
 class Room extends Model
   store_in 'rooms'
-
+  
+  send_command: (cmd, callback) ->
+    Caboose.app.channels.command.publish(JSON.stringify(
+      room: @_id, message: cmd
+    ))
+  
   @create: (props, callback) ->
     if typeof props is 'function'
       callback = props
@@ -20,8 +26,6 @@ class Room extends Model
       return callback(new Error('Room named ' + props.name + ' already exists')) if count > 0
 
       @save(props, callback)
-
+      
       # Create socket.io the namespace for the new room
-      [owner, organization, name] = props._id.split(':')
-      url = "/organizations/#{organization}/rooms/#{name}"
-      Caboose.app.rooms[url] = Caboose.app.io.of(url)
+      Caboose.app.io.of('/' + url.encode(props._id))

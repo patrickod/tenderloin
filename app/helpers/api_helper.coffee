@@ -20,3 +20,10 @@ exports.fetch_organization = (params_key) ->
           return next(err) if err?
           @organization = org
           next()
+
+exports.fetch_room = (next) ->
+  exports.fetch_organization('organizations_id').call @, =>
+    @organization.room(@params.rooms_id || @params.id).first (err, room) =>
+      return next(err) if err?
+      @room = room
+      next()

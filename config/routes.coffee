@@ -20,9 +20,11 @@ module.exports = ->
     @resources 'organizations', 'api_organizations', ->
       @resources 'rooms', 'api_rooms', ->
         @resources 'scripts', 'api_scripts'
+        @resources 'commands', 'api_commands'
     
     @resources 'rooms', 'api_rooms', ->
       @resources 'scripts', 'api_scripts'
+      @resources 'commands', 'api_commands'
     
     #
     #
