@@ -26,7 +26,7 @@ class Organization extends Model
     props.api_key = uuid.v1()
     props._id = "#{props.owner}:#{props.name}"
 
-    return callback(new Error("Organization name cannot contain :")) if props.name.match /:/
+    return callback(new Error('Organization name cannot contain a colon')) if /:/.test(props.name)
 
     @where(_id: props._id).count (err, count) =>
       return callback(err) if err?

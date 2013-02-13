@@ -1,0 +1,3 @@
+{
+  url: (process.env.DOMAIN_URL || 'tenderloin.localhost.dev').replace(/^(https?:\/\/| *)/g, '').replace(/[ \/].*/, '')
+}

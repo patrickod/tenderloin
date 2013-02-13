@@ -1,4 +1,0 @@
-{
-  return_url: process.env.GOOGLE_RETURN_URL || 'http://tenderloin.localhost.dev/auth/google/callback',
-  realm: process.env.GOOGLE_REALM || 'http://tenderloin.localhost.dev/'
-}
