@@ -7,6 +7,9 @@ moment = require 'moment'
 
 GoogleStrategy = require('passport-google').Strategy
 
+GOOGLE_RETURN_URL = 'http://' + Caboose.app.config.domain.url + '/auth/google/callback'
+GOOGLE_REALM = 'http://' + Caboose.app.config.domain.url + '/'
+
 passport.serializeUser (user, done) ->
   done(null, user._id)
 
@@ -15,8 +18,8 @@ passport.deserializeUser (id, done) ->
 
 passport.use(
   new GoogleStrategy {
-    returnURL: Caboose.app.config.google.return_url,
-    realm: Caboose.app.config.google.realm
+    returnURL: GOOGLE_RETURN_URL
+    realm: GOOGLE_REALM
   }, (identifier, profile, done) ->
     return done("Authentication failure") unless identifier?
     
