@@ -7,7 +7,8 @@ Room.array (err, rooms) ->
   throw err if err?
   
   rooms.forEach (room) ->
-    Caboose.app.io.of('/' + url.encode(room._id)).authorization (handshake, callback) ->
+    channel = Caboose.app.io.of('/' + url.encode(room._id))
+    channel.authorization (handshake, callback) ->
       api_key = handshake.headers?['x-tenderloin-api-key']
       return callback(null, false) unless api_key?
       
@@ -15,3 +16,8 @@ Room.array (err, rooms) ->
       Organization.where(_id: room.organization, api_key: api_key).count (err, count) ->
         return callback(err) if err?
         callback(null, count > 0)
+    
+    channel.on 'connection', (socket) ->
+      console.log 'ON CONNECTION'
+      socket.on 'ping', (msg) ->
+        room.client_ping(socket.id)

@@ -45,3 +45,7 @@ class ApiCommandsController extends ApiController
       
       @room.send_command(cmd)
       @respond(json: 'ok')
+  
+  create: ->
+    @room.send_command(@body.command)
+    @respond(json: 'ok')

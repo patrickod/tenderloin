@@ -1,0 +1,121 @@
+<style>
+  textarea {width:500px;height:300px;}
+  #editor { 
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+  }
+</style>
+
+<div class="container" id="content">
+  <div class="controls clearfix">
+    <div class="pull-left">
+      <div class="input-append">
+        <input type="text" name="name" class="span6" />
+        <span class="add-on"><i class="icon-pencil"></i></span>
+      </div>
+    </div>
+    
+    <div class="pull-right">
+      <div class="btn-toolbar" style="display:inline-block;">
+        <div class="btn-group">
+          <a id="new-script-btn" class="btn" href="#" title="New Script"><i class="icon-file"></i></a>
+          <a id="save-script-btn" class="btn" href="#" title="Save Script"><i class="icon-hdd"></i></a>
+          <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="icon-white icon-play"></i> Execute
+          </a>
+          <ul id="execute-script-btn" class="dropdown-menu">
+          <% organizations.forEach(function(org) { %>
+            <li class="organization"><%= org.name %></li>
+            <% org.rooms.forEach(function(room) { %>
+              <li><a href="#<%= room._id %>"><%= room.name %> <span class="user-count"><%= rooms[room._id] ? '(' + rooms[room._id].count + ')' : '' %></span></a></li>
+            <% }) %>
+          <% }) %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div style="position:relative;height:500px;">
+    <div id="editor"></div>
+  </div>
+  
+  <ul class="script-list">
+  <% scripts.forEach(function(script) { %>
+    <li class="clearfix">
+      <a href="<%= script._id %>" class="pull-left"><%= script.name || script.code %></a>
+      <div class="script-controls pull-right text-right">
+        <a href="#"><i class="icon-remove"></i></a>
+      </div>
+    </li>
+  <% }) %>
+  </ul>
+  
+  <script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+  <script>
+      var rooms = <%- JSON.stringify(rooms) %>;
+      var update_rooms = function() {
+        $.getJSON('/api/clients', function(data) {
+          $('#execute-script-btn .user-count').html('');
+          _(data).forEach(function(v, k) {
+            $('#execute-script-btn [href="#' + k + '"] .user-count').html('(' + v.count + ')');
+          });
+          rooms = data;
+        });
+      };
+  
+      var editor = ace.edit("editor");
+      editor.setTheme("ace/theme/twilight");
+      editor.getSession().setMode("ace/mode/javascript");
+      editor.getSession().setUseSoftTabs(true);
+      editor.getSession().setTabSize(2);
+    
+      $(function() {
+        var script_map = <%- JSON.stringify(script_map) %>;
+        setInterval(update_rooms, 5000);
+        
+        $('#new-script-btn').on('click', function() {
+          $('input[name="name"]').val('');
+          editor.setValue('');
+          editor.clearSelection();
+          evt.preventDefault();
+          return false;
+        });
+        $('#save-script-btn').on('click', function() {
+          var script = {code: editor.getValue()};
+          var name = $('input[name="name"]').val();
+          if (name && name.replace(/ /g, '').length > 0) {
+            script.name = name;
+          }
+          
+          $.post('/api/scripts', script, function() {
+            console.log(arguments);
+          });
+        });
+        $(document).on('click', '#execute-script-btn a', function(evt) {
+          var data = {command: editor.getValue()};
+          var match = /([^:]+:[^:]+):(.+)/.exec($(this).attr('href').slice(1));
+          
+          $.post('/api/organizations/' + match[1] + '/rooms/' + match[2] + '/commands', data);
+          
+          $(this).parents('.btn-group').removeClass('open');
+          evt.preventDefault();
+          return false;
+        });
+        
+        $(document).on('click', '.script-list a', function(evt) {
+          var script = script_map[$(this).attr('href')];
+          
+          $('input[name="name"]').val(script.name);
+          editor.setValue(script.code);
+          editor.clearSelection();
+          
+          evt.preventDefault();
+          return false;
+        });
+      });
+  </script>
+</div>

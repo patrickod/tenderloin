@@ -3,6 +3,7 @@ module.exports = ->
   
   @route '/', 'application'
   
+  @resources 'scripts'
   @resources 'organizations', ->
     @resources 'rooms'
     @resources 'users'
@@ -17,13 +18,14 @@ module.exports = ->
   
   @namespace 'api', ->
     @route 'user', 'api_users'
+    @resources 'scripts', 'api_scripts'
+    @resources 'clients', 'api_clients'
     @resources 'organizations', 'api_organizations', ->
       @resources 'rooms', 'api_rooms', ->
         @resources 'scripts', 'api_scripts'
         @resources 'commands', 'api_commands'
     
     @resources 'rooms', 'api_rooms', ->
-      @resources 'scripts', 'api_scripts'
       @resources 'commands', 'api_commands'
     
     #

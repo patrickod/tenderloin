@@ -15,6 +15,18 @@ class User extends Model
     
     Caboose.get('Organization').create(props, callback)
   
+  scripts: -> Caboose.get('Script').where(_id: new RegExp("^#{@_id}:"))
+  script: (name) -> Caboose.get('Script').where(_id: "#{@_id}:#{name}")
+  
+  create_script: (props, callback) ->
+    if typeof props is 'function'
+      callback = props
+      props = {}
+    
+    props.owner = @_id
+    
+    Caboose.get('Script').create(props, callback)
+  
   @create: (props, callback) ->
     if typeof props is 'function'
       callback = props

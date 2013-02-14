@@ -17,6 +17,9 @@ class Organization extends Model
 
     Caboose.get('Room').create(props, callback)
   
+  add_user: (email, callback) ->
+    @update({$addToSet: {users: email}}, callback)
+  
   @create: (props, callback) ->
     if typeof props is 'function'
       callback = props

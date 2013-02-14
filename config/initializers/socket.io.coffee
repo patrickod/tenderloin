@@ -9,8 +9,8 @@ Caboose.app.after 'boot', ->
     io.set('transports', ['xhr-polling'])
     io.set("polling duration", 10)
   
-  io.store = new RedisStore({
+  io.store = new RedisStore(
     redisPub: Caboose.app.redis.pub
     redisSub: Caboose.app.redis.sub
     redisClient: Caboose.app.redis.default
-  })
+  )
