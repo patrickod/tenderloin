@@ -10,6 +10,7 @@ Caboose.app.after 'boot', ->
     io.set("polling duration", 10)
   
   io.store = new RedisStore(
+    redis: require('redback/node_modules/redis')
     redisPub: Caboose.app.redis.pub
     redisSub: Caboose.app.redis.sub
     redisClient: Caboose.app.redis.default
