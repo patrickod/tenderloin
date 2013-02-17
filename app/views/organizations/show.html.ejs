@@ -20,14 +20,12 @@
     <thead>
       <tr>
         <th>Email</th>
-        <th>Edit</th>
       </tr>
     </thead>
     <tbody>
       <% _.map(organization.users, function(u) { %>
         <tr>
           <td><%= u %></td>
-          <td><a href="/users/<%= encode(u) %>">Edit</a></td>
         </tr>
       <% }) %>
     </tbody>
@@ -45,14 +43,19 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>Edit</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <% _.map(organization.rooms, function(r) { %>
         <tr>
-          <td><%= r.name %></td>
-          <td><a href="/organizations/<%= encode(r.organization) %>/rooms/<%= encode(r.name) %>">Edit</a></td>
+          <td><a href="/organizations/<%= encode(r.organization) %>/rooms/<%= encode(r.name) %>"><%= r.name %></a></td>
+          <td>
+            <form method="POST" action="/organizations/<%= encode(r.organization) %>/rooms/<%= encode(r.name) %>">
+              <input type="hidden" name="_method" value="DELETE" id="_method" />
+              <input type="submit" value="Delete" class="btn btn-danger btn-small" />
+            </form>
+          </td>
         </tr>
       <% }) %>
     </tbody>

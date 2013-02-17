@@ -3,6 +3,7 @@ import 'AuthenticatedController'
 _ = require 'underscore'
 async = require 'async'
 Organization = Caboose.get('Organization')
+Room = Caboose.get('Room')
 url = Caboose.get('UrlHelper')
 
 class RoomsController extends AuthenticatedController
@@ -23,3 +24,8 @@ class RoomsController extends AuthenticatedController
     @organization.create_room @body, (err, room) =>
       return @error(err) if err?
       @redirect_to "/organizations/#{url.encode(room.organization)}"
+
+  destroy: ->
+    @organization.remove_room url.decode(@params.id), (err) =>
+      return @error(err) if err?
+      @redirect_to "/organizations/#{@params.organizations_id}"

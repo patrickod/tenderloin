@@ -16,15 +16,19 @@ class Organization extends Model
     props.organization = @_id
 
     Caboose.get('Room').create(props, callback)
-  
+
+  remove_room: (name, callback) ->
+    console.log "Removing #{@_id}:#{name}"
+    Caboose.get('Room').remove({_id: "#{@_id}:#{name}"}, callback)
+
   add_user: (email, callback) ->
     @update({$addToSet: {users: email}}, callback)
-  
+
   @create: (props, callback) ->
     if typeof props is 'function'
       callback = props
       props = {}
-    
+
     props = _.pick(props, FIELDS)
     props.api_key = uuid.v1()
     props._id = "#{props.owner}:#{props.name}"
