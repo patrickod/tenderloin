@@ -1,4 +1,4 @@
-import 'AuthenticatedController'
+AuthenticatedController = Caboose.get('AuthenticatedController')
 
 _ = require 'underscore'
 async = require 'async'
