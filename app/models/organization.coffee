@@ -24,6 +24,9 @@ class Organization extends Model
   add_user: (email, callback) ->
     @update({$addToSet: {users: email}}, callback)
 
+  remove_user: (email, callback) ->
+    @update({$pull: {users: email}}, callback)
+
   @create: (props, callback) ->
     if typeof props is 'function'
       callback = props
