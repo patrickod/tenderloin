@@ -6,3 +6,8 @@ Tenderloin is a simple push based service that, when paired with the Golden Gate
 
 We at Unified are big fans of inter-room communication. We have a persistent Google+ hangout between the two development rooms. Tenderloin and Golden Gate allow us to control certain aspects of the sessions, such as toggling the camera and microphones in each room as well as playing alert noises to attract the attention on the other side.
 
+
+## Install
+
+Installing and deploying your own instance of Tenderloin is super easy. Just copy and excute the following command
+`bash <(curl -s http://www.gettenderloin.com/install.sh)`
