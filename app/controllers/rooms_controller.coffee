@@ -2,9 +2,9 @@ AuthenticatedController = Caboose.get('AuthenticatedController')
 
 _ = require 'underscore'
 async = require 'async'
+url = Caboose.get('UrlHelper')
 Organization = Caboose.get('Organization')
 Room = Caboose.get('Room')
-url = Caboose.get('UrlHelper')
 
 class RoomsController extends AuthenticatedController
   before_action (next) ->
