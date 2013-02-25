@@ -13,15 +13,13 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>View</th>
       </tr>
     </thead>
     <tbody>
       <% if (organizations.length) { %>
         <% _.map(organizations, function(o) { %>
           <tr>
-            <td><%= o.name %></td>
-            <td><a href="/organizations/<%= encode(o._id) %>">Edit</a></td>
+            <td><a href="/organizations/<%= encode(o._id)%>"><%= o.name %></a></td>
           </tr>
         <% }) %>
       <% } %>

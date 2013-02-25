@@ -1,5 +1,6 @@
 import 'ApiController'
 import 'UrlHelper'
+import 'Script'
 
 class ApiScriptsController extends ApiController
   index: ->
@@ -18,6 +19,6 @@ class ApiScriptsController extends ApiController
       @render(json: script)
   
   destroy: ->
-    @current_user.script(@params.id).remove (err) =>
+    Script.remove {_id: UrlHelper.decode(@params.id)}, (err) =>
       return @error(err) if err?
       @render(json: 'ok')

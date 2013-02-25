@@ -56,3 +56,5 @@ footer p {
 
 #execute-script-btn {width:250px;margin-left:-85px;}
 #execute-script-btn .organization {padding:3px 10px;color:#999;line-height:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+.vertical-center { vertical-align: middle; }

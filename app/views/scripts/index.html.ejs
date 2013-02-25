@@ -47,7 +47,7 @@
   
   <div style="border:1px solid #ccc;height:140px;overflow-y:scroll;">
     <ul class="script-list">
-    <% scripts.forEach(function(script) { %>
+    <% _(scripts).sortBy('name').forEach(function(script) { %>
       <li class="clearfix">
         <a href="<%= script._id %>" class="pull-left"><%= script.name || script.code %></a>
         <div class="script-controls pull-right text-right">
@@ -85,14 +85,15 @@
       var script_map = <%- JSON.stringify(script_map) %>;
       setInterval(update_rooms, 5000);
       
-      $('#new-script-btn').on('click', function() {
+      $('#new-script-btn').on('click', function(evt) {
         $('input[name="name"]').val('');
         editor.setValue('');
         editor.clearSelection();
+        
         evt.preventDefault();
         return false;
       });
-      $('#save-script-btn').on('click', function() {
+      $('#save-script-btn').on('click', function(evt) {
         var script = {code: editor.getValue()};
         var name = $('input[name="name"]').val();
         if (name && name.replace(/ /g, '').length > 0) {
@@ -113,6 +114,9 @@
             });
           }, 5000);
         });
+        
+        evt.preventDefault();
+        return false;
       });
       $(document).on('click', '#execute-script-btn a', function(evt) {
         var data = {command: editor.getValue()};
@@ -126,15 +130,22 @@
       });
       
       $(document).on('click', '.script-list a', function(evt) {
-        console.log(this);
+        var self = this;
         var script_name = $(this).attr('href');
         var script = script_map[script_name];
         
         if ($(this).attr('action') === 'remove') {
-          var self = this;
-          $.delete('/api/scripts/' + encode(script_name), function() {
+          $.ajax({
+            url: '/api/scripts/' + encode(script_name),
+            type: 'POST',
+            dataType: 'json',
+            headers: {'x-http-method-override': 'DELETE'}
+          }).success(function() {
             delete script_map[script_name];
-            $(self).parents('li').remove();
+            var $li = $(self).parents('li');
+            $li.slideUp(function() {
+              $li.remove();
+            });
           });
         } else {
           $('input[name="name"]').val(script.name);
