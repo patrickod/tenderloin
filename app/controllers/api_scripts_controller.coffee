@@ -16,3 +16,8 @@ class ApiScriptsController extends ApiController
     @current_user.create_script @body, (err, script) =>
       return @error(err) if err?
       @render(json: script)
+  
+  destroy: ->
+    @current_user.script(@params.id).remove (err) =>
+      return @error(err) if err?
+      @render(json: 'ok')

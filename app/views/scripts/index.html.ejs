@@ -39,83 +39,112 @@
     </div>
   </div>
   
+  <div id="alert-container"></div>
+  
   <div style="position:relative;height:500px;">
     <div id="editor"></div>
   </div>
   
-  <ul class="script-list">
-  <% scripts.forEach(function(script) { %>
-    <li class="clearfix">
-      <a href="<%= script._id %>" class="pull-left"><%= script.name || script.code %></a>
-      <div class="script-controls pull-right text-right">
-        <a href="#"><i class="icon-remove"></i></a>
-      </div>
-    </li>
-  <% }) %>
-  </ul>
+  <div style="border:1px solid #ccc;height:140px;overflow-y:scroll;">
+    <ul class="script-list">
+    <% scripts.forEach(function(script) { %>
+      <li class="clearfix">
+        <a href="<%= script._id %>" class="pull-left"><%= script.name || script.code %></a>
+        <div class="script-controls pull-right text-right">
+          <a href="<%= script._id %>" action="remove"><i class="icon-remove"></i></a>
+        </div>
+      </li>
+    <% }) %>
+    </ul>
+  </div>
   
   <script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
   <script>
-      var rooms = <%- JSON.stringify(rooms) %>;
-      var update_rooms = function() {
-        $.getJSON('/api/clients', function(data) {
-          $('#execute-script-btn .user-count').html('');
-          _(data).forEach(function(v, k) {
-            $('#execute-script-btn [href="#' + k + '"] .user-count').html('(' + v.count + ')');
-          });
-          rooms = data;
-        });
-      };
-  
-      var editor = ace.edit("editor");
-      editor.setTheme("ace/theme/twilight");
-      editor.getSession().setMode("ace/mode/javascript");
-      editor.getSession().setUseSoftTabs(true);
-      editor.getSession().setTabSize(2);
+    var encode = function(v) {
+      return encodeURIComponent(v).replace(/\./g, '-');
+    };
     
-      $(function() {
-        var script_map = <%- JSON.stringify(script_map) %>;
-        setInterval(update_rooms, 5000);
-        
-        $('#new-script-btn').on('click', function() {
-          $('input[name="name"]').val('');
-          editor.setValue('');
-          editor.clearSelection();
-          evt.preventDefault();
-          return false;
+    var rooms = <%- JSON.stringify(rooms) %>;
+    var update_rooms = function() {
+      $.getJSON('/api/clients', function(data) {
+        $('#execute-script-btn .user-count').html('');
+        _(data).forEach(function(v, k) {
+          $('#execute-script-btn [href="#' + k + '"] .user-count').html('(' + v.count + ')');
         });
-        $('#save-script-btn').on('click', function() {
-          var script = {code: editor.getValue()};
-          var name = $('input[name="name"]').val();
-          if (name && name.replace(/ /g, '').length > 0) {
-            script.name = name;
-          }
+        rooms = data;
+      });
+    };
+
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/twilight");
+    editor.getSession().setMode("ace/mode/javascript");
+    editor.getSession().setUseSoftTabs(true);
+    editor.getSession().setTabSize(2);
+  
+    $(function() {
+      var script_map = <%- JSON.stringify(script_map) %>;
+      setInterval(update_rooms, 5000);
+      
+      $('#new-script-btn').on('click', function() {
+        $('input[name="name"]').val('');
+        editor.setValue('');
+        editor.clearSelection();
+        evt.preventDefault();
+        return false;
+      });
+      $('#save-script-btn').on('click', function() {
+        var script = {code: editor.getValue()};
+        var name = $('input[name="name"]').val();
+        if (name && name.replace(/ /g, '').length > 0) {
+          script.name = name;
+        }
+        
+        $.post('/api/scripts', script, function() {
+          console.log(arguments);
           
-          $.post('/api/scripts', script, function() {
-            console.log(arguments);
+          var html = '<strong>Great!</strong> Your script has been saved';
+          var $alert = $('<div class="alert alert-success">' + html + '</div>').hide();
+          
+          $('#alert-container').append($alert);
+          $alert.slideDown();
+          setTimeout(function() {
+            $alert.slideUp(function() {
+              $alert.remove();
+            });
+          }, 5000);
+        });
+      });
+      $(document).on('click', '#execute-script-btn a', function(evt) {
+        var data = {command: editor.getValue()};
+        var match = /([^:]+:[^:]+):(.+)/.exec($(this).attr('href').slice(1));
+        
+        $.post('/api/organizations/' + match[1] + '/rooms/' + match[2] + '/commands', data);
+        
+        $(this).parents('.btn-group').removeClass('open');
+        evt.preventDefault();
+        return false;
+      });
+      
+      $(document).on('click', '.script-list a', function(evt) {
+        console.log(this);
+        var script_name = $(this).attr('href');
+        var script = script_map[script_name];
+        
+        if ($(this).attr('action') === 'remove') {
+          var self = this;
+          $.delete('/api/scripts/' + encode(script_name), function() {
+            delete script_map[script_name];
+            $(self).parents('li').remove();
           });
-        });
-        $(document).on('click', '#execute-script-btn a', function(evt) {
-          var data = {command: editor.getValue()};
-          var match = /([^:]+:[^:]+):(.+)/.exec($(this).attr('href').slice(1));
-          
-          $.post('/api/organizations/' + match[1] + '/rooms/' + match[2] + '/commands', data);
-          
-          $(this).parents('.btn-group').removeClass('open');
-          evt.preventDefault();
-          return false;
-        });
-        
-        $(document).on('click', '.script-list a', function(evt) {
-          var script = script_map[$(this).attr('href')];
-          
+        } else {
           $('input[name="name"]').val(script.name);
           editor.setValue(script.code);
           editor.clearSelection();
-          
-          evt.preventDefault();
-          return false;
-        });
+        }
+        
+        evt.preventDefault();
+        return false;
       });
+    });
   </script>
 </div>
