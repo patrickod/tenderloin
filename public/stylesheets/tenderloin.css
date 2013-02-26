@@ -6,6 +6,8 @@ body {
   background: url(/images/paper_fibers_@2X.png)
 }
 
+form {margin:0;}
+
 #welcome {position:relative;width:100%;overflow:hidden;}
 #welcome .image-wrapper {height:500px;}
 #welcome .image-wrapper img {width:100%;}

@@ -2,7 +2,7 @@ module.exports = ->
   # Website Routes
 
   @route '/', 'application'
-  @route '/impersonate', 'application#impersonate'
+  # @route '/impersonate', 'application#impersonate'
   
   @resources 'scripts'
   @resources 'organizations', ->
