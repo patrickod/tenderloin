@@ -13,11 +13,13 @@
       <div class="navbar-inner">
         <div class="container-fluid">
           <a class="brand" href="/">Tenderloin</a>
+        
         <% if (is_logged_in()) { %>
-        <ul class="nav pull-right">
-          <li id="install-golden-gate" class="hide"><a href="/golden-gate/latest.crx"><span class="badge badge-success">Install Golden Gate</span></a></li>
-          <li><a href="/auth/logout">Logout</a></li>
-        </ul>
+          <ul class="nav pull-right">
+            <li id="install-golden-gate" class="hide"><a href="/golden-gate/latest.crx"><span class="badge badge-success">Install Golden Gate</span></a></li>
+            <li><a href="/scripts">Scripts</a></li>
+            <li><a href="/auth/logout">Logout</a></li>
+          </ul>
         <% } %>
         </div>
       </div>
@@ -30,7 +32,6 @@
     </footer>
     
     
-    <!-- Modal -->
     <div id="install-golden-gate-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-header">
         <h3>How to install Golden Gate</h3>
