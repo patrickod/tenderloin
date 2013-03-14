@@ -6,4 +6,7 @@
   <app appid='pmpfhpncalbbojmipclnjghibifpkihk'>
     <updatecheck codebase='http://tenderloin.localhost.dev/golden-gate/1.0.1.crx' version='1.0.1' />
   </app>
+  <app appid='pmpfhpncalbbojmipclnjghibifpkihk'>
+    <updatecheck codebase='http://tenderloin.localhost.dev/golden-gate/1.0.2.crx' version='1.0.2' />
+  </app>
 </gupdate>
