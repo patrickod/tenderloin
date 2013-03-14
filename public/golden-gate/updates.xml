@@ -10,6 +10,9 @@
     <updatecheck codebase='http://tenderloin.localhost.dev/golden-gate/1.0.2.crx' version='1.0.2' />
   </app>
 	<app appid='pmpfhpncalbbojmipclnjghibifpkihk'>
-    <updatecheck codebase='http://tenderloin.localhost.dev/golden-gate/1.0.2.crx' version='1.0.3' />
+    <updatecheck codebase='http://tenderloin.localhost.dev/golden-gate/1.0.3.crx' version='1.0.3' />
+  </app>
+	<app appid='pmpfhpncalbbojmipclnjghibifpkihk'>
+    <updatecheck codebase='http://tenderloin.localhost.dev/golden-gate/1.0.4.crx' version='1.0.4' />
   </app>
 </gupdate>
